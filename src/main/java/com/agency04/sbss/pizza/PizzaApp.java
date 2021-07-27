@@ -1,7 +1,6 @@
 package com.agency04.sbss.pizza;
 
 import com.agency04.sbss.pizza.model.Pizza;
-import com.agency04.sbss.pizza.model.Pizzeria;
 import com.agency04.sbss.pizza.service.PizzaDeliveryService;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.context.ApplicationContext;

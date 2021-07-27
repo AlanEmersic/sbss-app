@@ -1,5 +1,8 @@
 package com.agency04.sbss.pizza.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Margherita implements Pizza {
 
     @Override

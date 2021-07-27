@@ -8,24 +8,5 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder
             location="classpath:application.properties"></context:property-placeholder>
-
-    <!-- Define your Beans here -->
-    <bean id="margherita" class="com.agency04.sbss.pizza.model.Margherita"></bean>
-    <bean id="marinara" class="com.agency04.sbss.pizza.model.Marinara"></bean>
-
-    <bean id="pizzeria" class="com.agency04.sbss.pizza.model.Pizzeria">
-        <property name="name" value="pizzeria"></property>
-        <property name="address" value="Pizzeria address"></property>
-    </bean>
-    <bean id="pizzaDelivery" class="com.agency04.sbss.pizza.model.PizzaDelivery">
-        <constructor-arg ref="pizzeria"></constructor-arg>
-    </bean>
-
-    <bean id="pizzeria2" class="com.agency04.sbss.pizza.model.Pizzeria2">
-        <property name="name" value="${pizzeria2.name}"></property>
-        <property name="address" value="${pizzeria2.address}"></property>
-    </bean>
-    <bean id="pizzaDelivery2" class="com.agency04.sbss.pizza.model.PizzaDelivery2">
-        <property name="pizzeriaService" ref="pizzeria2"></property>
-    </bean>
+    <context:component-scan base-package="com.agency04.sbss.pizza"></context:component-scan>
 </beans>
