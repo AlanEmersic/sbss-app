@@ -1,8 +1,9 @@
 package com.agency04.sbss.pizza.model;
 
-import org.springframework.stereotype.Component;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-@Component
 public class Margherita implements Pizza {
 
     @Override
@@ -11,7 +12,9 @@ public class Margherita implements Pizza {
     }
 
     @Override
-    public String getIngredients() {
-        return "Tomato sauce, mozzarella, and oregano";
+    public Set<PizzaIngredient> getIngredients() {
+        return new HashSet<>(Arrays.asList(PizzaIngredient.TomatoSouce,
+                PizzaIngredient.Mozzarella, PizzaIngredient.Oregano));
+
     }
 }

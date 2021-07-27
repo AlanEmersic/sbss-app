@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PizzaDelivery implements PizzaDeliveryService {
+public class Fianona implements PizzaDeliveryService {
     private final PizzeriaService pizzeriaService;
 
     @Autowired
-    public PizzaDelivery(@Qualifier("pizzeria") PizzeriaService pizzeriaService) {
+    public Fianona(@Qualifier("pizzeriaChello") PizzeriaService pizzeriaService) {
         this.pizzeriaService = pizzeriaService;
     }
 
     @Override
     public String orderPizza(Pizza pizza) {
-        return "PizzaDelivery order";
+        return "Fianona order";
     }
 }

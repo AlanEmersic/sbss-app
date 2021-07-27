@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Pizzeria implements PizzeriaService {
-    @Value("${pizzeria.name}")
+public class PizzeriaChello implements PizzeriaService {
+    @Value("${PizzeriaChello.name}")
     private String name;
-    @Value("${pizzeria.address}")
+    @Value("${PizzeriaChello.address}")
     private String address;
 
     public void setName(String name) {
@@ -30,7 +30,7 @@ public class Pizzeria implements PizzeriaService {
     }
 
     @Override
-    public void makePizza(Pizza pizza) {
-
+    public String makePizza(Pizza pizza) {
+        return pizza.getName();
     }
 }
