@@ -2,11 +2,11 @@ package com.agency04.sbss.pizza.model;
 
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope("prototype")
+@Primary
 public class PizzeriaChello implements PizzeriaService {
     @Value("${pizzeria-chello.name}")
     private String name;

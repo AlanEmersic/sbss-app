@@ -4,12 +4,10 @@ import com.agency04.sbss.pizza.service.PizzaDeliveryService;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Component
 public class Capuciner implements PizzaDeliveryService {
     private PizzeriaService pizzeriaService;
 
@@ -19,7 +17,7 @@ public class Capuciner implements PizzaDeliveryService {
     }
 
     @Autowired
-    public void setPizzeriaService(@Qualifier("pizzeriaLira") PizzeriaService pizzeriaService) {
+    public void setPizzeriaService(PizzeriaService pizzeriaService) {
         this.pizzeriaService = pizzeriaService;
     }
 
