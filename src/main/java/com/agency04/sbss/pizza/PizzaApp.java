@@ -18,10 +18,10 @@ public class PizzaApp {
         System.out.println(fianonaPizzaDeliveryService.orderPizza(new Margherita()));
         PizzaDeliveryService capucinerPizzaDeliveryService = context.getBean("capuciner", PizzaDeliveryService.class);
         System.out.println(capucinerPizzaDeliveryService.orderPizza(new Marinara()));
-        PizzeriaService pizzeriaChello = context.getBean("pizzeriaChello", PizzeriaService.class);
+        PizzeriaService pizzeriaChello = context.getBean(PizzeriaService.class);
         System.out.println(pizzeriaChello.getName());
-
-        context.close();
+        PizzeriaService pizzeriaLira = context.getBean("pizzeriaLira", PizzeriaService.class);
+        System.out.println(pizzeriaLira.getName());
     }
 
 }

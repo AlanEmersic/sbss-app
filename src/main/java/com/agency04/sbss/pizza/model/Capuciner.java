@@ -3,13 +3,13 @@ package com.agency04.sbss.pizza.model;
 import com.agency04.sbss.pizza.service.PizzaDeliveryService;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.time.LocalDate;
 
-@Component
+@Service
 public class Capuciner implements PizzaDeliveryService {
     private PizzeriaService pizzeriaService;
     private LocalDate deliveryDate;

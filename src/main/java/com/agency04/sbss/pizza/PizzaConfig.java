@@ -12,7 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class PizzaConfig {
 
-    @Bean
     public PizzeriaService pizzeriaService() {
         return new PizzeriaChello();
     }
