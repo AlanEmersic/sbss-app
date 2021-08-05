@@ -1,6 +1,5 @@
 package com.agency04.sbss.pizza;
 
-import com.agency04.sbss.pizza.model.Capuciner;
 import com.agency04.sbss.pizza.model.Fianona;
 import com.agency04.sbss.pizza.model.PizzeriaChello;
 import com.agency04.sbss.pizza.service.PizzaDeliveryService;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-//@ComponentScan("com.agency04.sbss.pizza")
 @PropertySource("classpath:application.properties")
 public class PizzaConfig {
 
@@ -24,10 +22,4 @@ public class PizzaConfig {
         return new Fianona(pizzeriaService());
     }
 
-    @Bean
-    public PizzaDeliveryService capuciner() {
-        Capuciner capuciner = new Capuciner();
-        capuciner.setPizzeriaService(pizzeriaService());
-        return capuciner;
-    }
 }
