@@ -16,7 +16,7 @@ public class Capuciner implements PizzaDeliveryService {
 
     @Override
     public String orderPizza(Pizza pizza) {
-        return "Capuciner order";
+        return "Order from " + pizzeriaService.getName();
     }
 
     @Autowired
