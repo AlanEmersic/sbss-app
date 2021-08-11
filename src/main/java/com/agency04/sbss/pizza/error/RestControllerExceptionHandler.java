@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class PizzeriaExceptionHandler {
+public class RestControllerExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<PizzeriaErrorResponse> handleException(PizzeriaNotFoundException ex) {
-        PizzeriaErrorResponse error = new PizzeriaErrorResponse();
+    public ResponseEntity<RestControllerErrorResponse> handleException(RestControllerNotFoundException ex) {
+        RestControllerErrorResponse error = new RestControllerErrorResponse();
         error.setMessage(ex.getMessage());
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setTimestamp(System.currentTimeMillis());
@@ -19,8 +19,8 @@ public class PizzeriaExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<PizzeriaErrorResponse> handleException(Exception ex) {
-        PizzeriaErrorResponse error = new PizzeriaErrorResponse();
+    public ResponseEntity<RestControllerErrorResponse> handleException(Exception ex) {
+        RestControllerErrorResponse error = new RestControllerErrorResponse();
         error.setMessage(ex.getMessage());
         error.setStatus(HttpStatus.BAD_REQUEST.value());
         error.setTimestamp(System.currentTimeMillis());

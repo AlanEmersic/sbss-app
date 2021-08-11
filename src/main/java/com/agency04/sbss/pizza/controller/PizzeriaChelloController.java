@@ -3,6 +3,7 @@ package com.agency04.sbss.pizza.controller;
 import com.agency04.sbss.pizza.model.Margherita;
 import com.agency04.sbss.pizza.model.Marinara;
 import com.agency04.sbss.pizza.model.Pizza;
+import com.agency04.sbss.pizza.model.PizzaSize;
 import com.agency04.sbss.pizza.service.PizzeriaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,9 @@ public class PizzeriaChelloController {
     @PostConstruct
     private void loadData() {
         pizzas = new ArrayList<>();
-        pizzas.add(new Margherita());
-        pizzas.add(new Marinara());
+        pizzas.add(new Margherita(PizzaSize.SMALL));
+        pizzas.add(new Margherita(PizzaSize.MEDIUM));
+        pizzas.add(new Marinara(PizzaSize.LARGE));
     }
 
     @GetMapping("/menu")

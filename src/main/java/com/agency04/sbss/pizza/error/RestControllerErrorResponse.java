@@ -1,17 +1,17 @@
 package com.agency04.sbss.pizza.error;
 
-public class PizzeriaErrorResponse {
+public class RestControllerErrorResponse {
     private int status;
     private String message;
     private long timestamp;
 
-    public PizzeriaErrorResponse(int status, String message, long timestamp) {
+    public RestControllerErrorResponse(int status, String message, long timestamp) {
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;
     }
 
-    public PizzeriaErrorResponse() {
+    public RestControllerErrorResponse() {
     }
 
     public int getStatus() {

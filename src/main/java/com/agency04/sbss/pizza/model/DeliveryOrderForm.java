@@ -4,6 +4,11 @@ public class DeliveryOrderForm {
     private Customer customer;
     private Pizza pizza;
 
+    public DeliveryOrderForm(Customer customer, Pizza pizza) {
+        this.customer = customer;
+        this.pizza = pizza;
+    }
+
     public Customer getCustomer() {
         return customer;
     }

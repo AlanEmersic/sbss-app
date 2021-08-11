@@ -12,4 +12,6 @@ public interface CustomerService {
     List<Customer> getAll();
 
     void delete(String username);
+
+    Customer update(Customer customer);
 }
