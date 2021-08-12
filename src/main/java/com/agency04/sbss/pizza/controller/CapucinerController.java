@@ -18,12 +18,12 @@ import java.util.Objects;
 public class CapucinerController {
 
     private final CustomerService customerService;
-    private final CapucinerPizzaServiceImpl capucinerPizzaService;
+    private final PizzaService pizzaService;
     private List<DeliveryOrderForm> orders;
 
-    public CapucinerController(CustomerService customerService, CapucinerPizzaServiceImpl capucinerPizzaService) {
+    public CapucinerController(CustomerService customerService, PizzaService pizzaService) {
         this.customerService = customerService;
-        this.capucinerPizzaService = capucinerPizzaService;
+        this.pizzaService = pizzaService;
         orders = new ArrayList<>();
     }
 
@@ -36,7 +36,7 @@ public class CapucinerController {
     public void addOrder(@RequestBody final DeliveryOrderForm order) {
         if (Objects.nonNull(order.getCustomer()) && Objects.nonNull(order.getPizza())) {
             Customer findCustomer = customerService.get(order.getCustomer().getUsername());
-            Pizza findPizza = capucinerPizzaService.get(order.getPizza().getName());
+            Pizza findPizza = pizzaService.get(order.getPizza().getName());
             if (Objects.nonNull(findCustomer) && Objects.nonNull(findPizza)) {
                 orders.add(order);
             } else {
