@@ -4,6 +4,15 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class Marinara implements Pizza {
+    private PizzaSize pizzaSize;
+
+    public Marinara(PizzaSize pizzaSize) {
+        this.pizzaSize = pizzaSize;
+    }
+
+    public Marinara() {
+    }
+
     @Override
     public String getName() {
         return "Marinara";
@@ -13,5 +22,10 @@ public class Marinara implements Pizza {
     public Set<PizzaIngredient> getIngredients() {
         return EnumSet.of(PizzaIngredient.TomatoSouce,
                 PizzaIngredient.Garlic, PizzaIngredient.Basil);
+    }
+
+    @Override
+    public PizzaSize getSize() {
+        return pizzaSize;
     }
 }

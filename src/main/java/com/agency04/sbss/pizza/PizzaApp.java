@@ -14,14 +14,14 @@ public class PizzaApp {
     public static void main(String[] args) {
         // Add some pizza code
         ConfigurableApplicationContext context = SpringApplication.run(PizzaApp.class, args);
-        PizzaDeliveryService fianonaPizzaDeliveryService = context.getBean("fianona", PizzaDeliveryService.class);
-        System.out.println(fianonaPizzaDeliveryService.orderPizza(new Margherita()));
-        PizzaDeliveryService capucinerPizzaDeliveryService = context.getBean("capuciner", PizzaDeliveryService.class);
-        System.out.println(capucinerPizzaDeliveryService.orderPizza(new Marinara()));
-        PizzeriaService pizzeriaChello = context.getBean(PizzeriaService.class);
-        System.out.println(pizzeriaChello.getName());
-        PizzeriaService pizzeriaLira = context.getBean("pizzeriaLira", PizzeriaService.class);
-        System.out.println(pizzeriaLira.getName());
+//        PizzaDeliveryService fianonaPizzaDeliveryService = context.getBean("fianona", PizzaDeliveryService.class);
+//        System.out.println(fianonaPizzaDeliveryService.orderPizza(new Margherita()));
+//        PizzaDeliveryService capucinerPizzaDeliveryService = context.getBean("capuciner", PizzaDeliveryService.class);
+//        System.out.println(capucinerPizzaDeliveryService.orderPizza(new Marinara()));
+//        PizzeriaService pizzeriaChello = context.getBean(PizzeriaService.class);
+//        System.out.println(pizzeriaChello.getName());
+//        PizzeriaService pizzeriaLira = context.getBean("pizzeriaLira", PizzeriaService.class);
+//        System.out.println(pizzeriaLira.getName());
     }
 
 }

@@ -6,4 +6,6 @@ public interface Pizza {
     String getName();
 
     Set<PizzaIngredient> getIngredients();
+
+    PizzaSize getSize();
 }
