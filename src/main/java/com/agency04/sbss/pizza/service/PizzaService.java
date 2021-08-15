@@ -1,7 +1,15 @@
 package com.agency04.sbss.pizza.service;
 
-import com.agency04.sbss.pizza.model.Pizza;
+import com.agency04.sbss.pizza.entity.Pizza;
+
+import java.util.List;
 
 public interface PizzaService {
-    Pizza get(String name);
+    void save(Pizza pizza);
+
+    Pizza get(Long id);
+
+    List<Pizza> getAll();
+
+    void delete(Long id);
 }

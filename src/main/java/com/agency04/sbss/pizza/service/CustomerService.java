@@ -1,6 +1,6 @@
 package com.agency04.sbss.pizza.service;
 
-import com.agency04.sbss.pizza.model.Customer;
+import com.agency04.sbss.pizza.entity.Customer;
 
 import java.util.List;
 

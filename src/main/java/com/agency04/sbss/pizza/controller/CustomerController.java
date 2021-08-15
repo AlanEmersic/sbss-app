@@ -1,6 +1,6 @@
 package com.agency04.sbss.pizza.controller;
 
-import com.agency04.sbss.pizza.model.Customer;
+import com.agency04.sbss.pizza.entity.Customer;
 import com.agency04.sbss.pizza.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
