@@ -17,11 +17,6 @@ public class Pizza {
 
     private String name;
 
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @JoinTable(name = "ingredients", joinColumns = @JoinColumn(name = "ingredients"))
-//    @Column(name = "ingredient")
-//    @Enumerated(EnumType.STRING)
-//    private List<Ingredient> ingredients;
     @Enumerated(EnumType.STRING)
     private Ingredient ingredients;
 
