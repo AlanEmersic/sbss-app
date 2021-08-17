@@ -40,3 +40,11 @@ CREATE TABLE PizzaOrder
     pizzaId    NUMBER,
     deliveryId NUMBER
 );
+
+DROP TABLE IF EXISTS Ingredient;
+CREATE TABLE Ingredient
+(
+    id          NUMBER PRIMARY KEY AUTO_INCREMENT,
+    ingredients VARCHAR(255),
+    pizzaId     NUMBER
+);

@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,12 +21,15 @@ public class Pizza {
 
     private String name;
 
+    @ElementCollection(targetClass = Ingredient.class)
     @Enumerated(EnumType.STRING)
-    private Ingredient ingredients;
+    @Column(name = "ingredients")
+    @CollectionTable(name = "Ingredient",
+            joinColumns = @JoinColumn(name = "id"))
+    private Set<Ingredient> ingredients;
 
     @OneToMany(targetEntity = PizzaOrder.class, mappedBy = "pizza",
-            fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<PizzaOrder> pizzaOrders = new ArrayList<>();
-
 }

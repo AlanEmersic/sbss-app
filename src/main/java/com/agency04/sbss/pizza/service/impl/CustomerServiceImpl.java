@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -31,10 +32,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void save(CustomerForm customerForm) {
-        if (customerForm.getDetails().getFirstName().trim().isEmpty() ||
-                customerForm.getDetails().getLastName().trim().isEmpty() ||
-                customerForm.getDetails().getPhone().trim().isEmpty()
-        ) {
+        if (Stream
+                .of(customerForm.getDetails().getFirstName(),
+                        customerForm.getDetails().getLastName(),
+                        customerForm.getDetails().getPhone())
+                .anyMatch(String::isEmpty)) {
             throw new RuntimeException("Validate exception for customer form");
         }
 
@@ -50,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto get(String username) {
-        return customerDtoMapper.map(customerRepository.findCustomerByUsername(username)
+        return customerDtoMapper.map(customerRepository.findTopByUsername(username)
                 .orElseThrow(() -> new NotFoundException("get error, customer not found")));
     }
 
@@ -61,18 +63,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(String username) {
-        customerRepository.delete(customerRepository.findCustomerByUsername(username)
+        customerRepository.delete(customerRepository.findTopByUsername(username)
                 .orElseThrow(() -> new NotFoundException("delete error, customer not found")));
     }
 
     @Override
     public CustomerDto update(CustomerForm customerForm) {
-        Optional<Customer> optionalCustomer = customerRepository.findCustomerByUsername(customerForm.getUsername());
+        Optional<Customer> optionalCustomer = customerRepository.findTopByUsername(customerForm.getUsername());
 
         if (optionalCustomer.isPresent()) {
             Customer updateCustomer = optionalCustomer.get();
-            BeanUtils.copyProperties(customerForm, updateCustomer);
-            customerRepository.save(updateCustomer);
+            CustomerDetails customerDetails = customerDetailsRepository
+                    .findTopByCustomer_Username(updateCustomer.getUsername()).get();
+            updateCustomer.setCustomerDetails(customerDetails);
+            BeanUtils.copyProperties(customerForm.getDetails(), customerDetails);
+            customerDetailsRepository.save(customerDetails);
             return customerDtoMapper.map(updateCustomer);
         } else {
             throw new NotFoundException("update error, customer not found");

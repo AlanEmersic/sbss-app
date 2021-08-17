@@ -4,6 +4,7 @@ import com.agency04.sbss.pizza.dto.DeliveryDto;
 import com.agency04.sbss.pizza.entity.Customer;
 import com.agency04.sbss.pizza.entity.Delivery;
 import com.agency04.sbss.pizza.entity.PizzaOrder;
+import com.agency04.sbss.pizza.error.NotFoundException;
 import com.agency04.sbss.pizza.form.DeliveryOrderForm;
 import com.agency04.sbss.pizza.mapper.DeliveryDtoMapper;
 import com.agency04.sbss.pizza.repository.CustomerRepository;
@@ -36,7 +37,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public void save(DeliveryOrderForm deliveryOrderForm) {
         Optional<Customer> optionalCustomer = customerRepository.
-                findCustomerByUsername(deliveryOrderForm.getCustomer().getUsername());
+                findTopByUsername(deliveryOrderForm.getCustomer().getUsername());
 
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
@@ -55,6 +56,9 @@ public class DeliveryServiceImpl implements DeliveryService {
             }
             delivery.getPizzaOrders().add(pizzaOrder);
             deliveryRepository.save(delivery);
+        }
+        else {
+            throw new NotFoundException("post deliveryOrderForm error, customer not found");
         }
     }
 
