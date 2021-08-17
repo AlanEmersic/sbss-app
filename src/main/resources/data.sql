@@ -27,3 +27,9 @@ VALUES ('2', 'MEDIUM', 1, 1),
        ('5', 'SMALL', 2, 2),
        ('1', 'LARGE', 4, 4),
        ('3', 'MEDIUM', 3, 4);
+
+INSERT INTO Ingredient (ingredients, pizzaId)
+VALUES ('Tomato', 1),
+       ('Mozzarella', 2),
+       ('Tomato', 3),
+       ('Tomato', 4);
