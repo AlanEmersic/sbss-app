@@ -1,15 +1,12 @@
 package com.agency04.sbss.pizza.service;
 
-import com.agency04.sbss.pizza.entity.Delivery;
+import com.agency04.sbss.pizza.dto.DeliveryDto;
+import com.agency04.sbss.pizza.form.DeliveryOrderForm;
 
 import java.util.List;
 
 public interface DeliveryService {
-    void save(Delivery delivery);
+    void save(DeliveryOrderForm deliveryOrderForm);
 
-    Delivery get(Long id);
-
-    List<Delivery> getAll();
-
-    void delete(Long id);
+    List<DeliveryDto> getAll();
 }

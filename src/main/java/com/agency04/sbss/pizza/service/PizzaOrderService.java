@@ -1,15 +1,12 @@
 package com.agency04.sbss.pizza.service;
 
-import com.agency04.sbss.pizza.entity.PizzaOrder;
+import com.agency04.sbss.pizza.dto.PizzaOrderDto;
 
 import java.util.List;
 
 public interface PizzaOrderService {
-    void save(PizzaOrder order);
 
-    PizzaOrder get(Long id);
+    PizzaOrderDto get(Long id);
 
-    List<PizzaOrder> getAll();
-
-    void delete(Long id);
+    List<PizzaOrderDto> getAll();
 }

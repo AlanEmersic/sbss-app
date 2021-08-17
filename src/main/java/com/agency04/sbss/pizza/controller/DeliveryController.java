@@ -1,9 +1,11 @@
 package com.agency04.sbss.pizza.controller;
 
-import com.agency04.sbss.pizza.entity.Delivery;
+import com.agency04.sbss.pizza.dto.DeliveryDto;
+import com.agency04.sbss.pizza.form.DeliveryOrderForm;
 import com.agency04.sbss.pizza.service.DeliveryService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,23 +17,13 @@ public class DeliveryController {
         this.deliveryService = deliveryService;
     }
 
-    @GetMapping
-    public List<Delivery> getAll() {
+    @GetMapping("/list")
+    public List<DeliveryDto> getAll() {
         return deliveryService.getAll();
     }
 
-    @GetMapping("/{id}")
-    public Delivery get(@PathVariable Long id) {
-        return deliveryService.get(id);
-    }
-
-    @PostMapping
-    public void create(@RequestBody Delivery delivery) {
-        deliveryService.save(delivery);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        deliveryService.delete(id);
+    @PostMapping("/order")
+    public void create(@Valid @RequestBody final DeliveryOrderForm deliveryOrderForm) {
+        deliveryService.save(deliveryOrderForm);
     }
 }
