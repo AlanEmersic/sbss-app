@@ -23,9 +23,8 @@ public class Pizza {
 
     @ElementCollection(targetClass = Ingredient.class)
     @Enumerated(EnumType.STRING)
-    @Column(name = "ingredients")
     @CollectionTable(name = "Ingredient",
-            joinColumns = @JoinColumn(name = "id"))
+            joinColumns = @JoinColumn(name = "pizzaId"))
     private Set<Ingredient> ingredients;
 
     @OneToMany(targetEntity = PizzaOrder.class, mappedBy = "pizza",
