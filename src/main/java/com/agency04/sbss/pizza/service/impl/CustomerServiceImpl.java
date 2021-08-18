@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -32,14 +31,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void save(CustomerForm customerForm) {
-        if (Stream
-                .of(customerForm.getDetails().getFirstName(),
-                        customerForm.getDetails().getLastName(),
-                        customerForm.getDetails().getPhone())
-                .anyMatch(String::isEmpty)) {
-            throw new RuntimeException("Validate exception for customer form");
-        }
-
         Customer customer = new Customer();
         CustomerDetails customerDetails = new CustomerDetails();
         BeanUtils.copyProperties(customerForm.getDetails(), customerDetails);
@@ -52,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto get(String username) {
-        return customerDtoMapper.map(customerRepository.findTopByUsername(username)
+        return customerDtoMapper.map(customerRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException("get error, customer not found")));
     }
 
@@ -63,13 +54,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(String username) {
-        customerRepository.delete(customerRepository.findTopByUsername(username)
+        customerRepository.delete(customerRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException("delete error, customer not found")));
     }
 
     @Override
     public CustomerDto update(CustomerForm customerForm) {
-        Optional<Customer> optionalCustomer = customerRepository.findTopByUsername(customerForm.getUsername());
+        Optional<Customer> optionalCustomer = customerRepository.findByUsername(customerForm.getUsername());
 
         if (optionalCustomer.isPresent()) {
             Customer updateCustomer = optionalCustomer.get();

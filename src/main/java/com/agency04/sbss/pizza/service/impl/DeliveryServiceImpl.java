@@ -37,7 +37,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public void save(DeliveryOrderForm deliveryOrderForm) {
         Optional<Customer> optionalCustomer = customerRepository.
-                findTopByUsername(deliveryOrderForm.getCustomer().getUsername());
+                findByUsername(deliveryOrderForm.getCustomer().getUsername());
 
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
