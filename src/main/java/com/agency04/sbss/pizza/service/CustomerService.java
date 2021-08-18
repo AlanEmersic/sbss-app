@@ -1,17 +1,18 @@
 package com.agency04.sbss.pizza.service;
 
-import com.agency04.sbss.pizza.model.Customer;
+import com.agency04.sbss.pizza.dto.CustomerDto;
+import com.agency04.sbss.pizza.form.CustomerForm;
 
 import java.util.List;
 
 public interface CustomerService {
-    void save(Customer customer);
+    void save(CustomerForm customerForm);
 
-    Customer get(String username);
+    CustomerDto get(String username);
 
-    List<Customer> getAll();
+    List<CustomerDto> getAll();
 
     void delete(String username);
 
-    Customer update(Customer customer);
+    CustomerDto update(CustomerForm customerForm);
 }

@@ -1,71 +1,77 @@
 package com.agency04.sbss.pizza.service.impl;
 
-import com.agency04.sbss.pizza.error.RestControllerNotFoundException;
-import com.agency04.sbss.pizza.model.Customer;
+import com.agency04.sbss.pizza.dto.CustomerDto;
+import com.agency04.sbss.pizza.entity.Customer;
+import com.agency04.sbss.pizza.entity.CustomerDetails;
+import com.agency04.sbss.pizza.error.NotFoundException;
+import com.agency04.sbss.pizza.form.CustomerForm;
+import com.agency04.sbss.pizza.mapper.CustomerDtoMapper;
+import com.agency04.sbss.pizza.repository.CustomerDetailsRepository;
+import com.agency04.sbss.pizza.repository.CustomerRepository;
 import com.agency04.sbss.pizza.service.CustomerService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    private List<Customer> customers;
+    private final CustomerRepository customerRepository;
+    private final CustomerDtoMapper customerDtoMapper;
+    private final CustomerDetailsRepository customerDetailsRepository;
 
-    @PostConstruct
-    private void loadData() {
-        customers = new ArrayList<>();
-        customers.add(new Customer("iivic", "Ivo", "Ivić"));
-        customers.add(new Customer("ihorvat", "Ivan", "Horvat"));
-        customers.add(new Customer("abanana", "Ana", "banana"));
-        customers.add(new Customer("pperic", "Pero", "Perić"));
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerDtoMapper customerDtoMapper,
+                               CustomerDetailsRepository customerDetailsRepository) {
+        this.customerRepository = customerRepository;
+        this.customerDtoMapper = customerDtoMapper;
+        this.customerDetailsRepository = customerDetailsRepository;
     }
 
     @Override
-    public void save(Customer customer) {
-        customers.add(customer);
+    public void save(CustomerForm customerForm) {
+        Customer customer = new Customer();
+        CustomerDetails customerDetails = new CustomerDetails();
+        BeanUtils.copyProperties(customerForm.getDetails(), customerDetails);
+        customerDetails.setCustomer(customer);
+        BeanUtils.copyProperties(customerForm, customer);
+        customer.setCustomerDetails(customerDetails);
+        customerRepository.save(customer);
+        customerDetailsRepository.save(customerDetails);
     }
 
     @Override
-    public Customer get(String username) {
-        Customer findCustomer = customers.stream().
-                filter(c -> c.getUsername().equals(username)).findFirst().orElse(null);
-
-        if (Objects.nonNull(findCustomer)) {
-            return findCustomer;
-        } else {
-            throw new RestControllerNotFoundException("customer with username: " + username + " not found");
-        }
+    public CustomerDto get(String username) {
+        return customerDtoMapper.map(customerRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("get error, customer not found")));
     }
 
     @Override
-    public List<Customer> getAll() {
-        return customers;
+    public List<CustomerDto> getAll() {
+        return customerRepository.findAll().stream().map(customerDtoMapper::map).collect(Collectors.toList());
     }
 
     @Override
     public void delete(String username) {
-        Customer customer = customers.stream().filter(c -> c.getUsername().equals(username)).findFirst().orElse(null);
-
-        if (Objects.nonNull(customer)) {
-            customers.remove(customer);
-        } else {
-            throw new RestControllerNotFoundException("customer with username: " + username + " not found");
-        }
+        customerRepository.delete(customerRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("delete error, customer not found")));
     }
 
     @Override
-    public Customer update(Customer customer) {
-        Customer findCustomer = customers.stream().
-                filter(c -> c.getUsername().equals(customer.getUsername())).findFirst().orElse(null);
+    public CustomerDto update(CustomerForm customerForm) {
+        Optional<Customer> optionalCustomer = customerRepository.findByUsername(customerForm.getUsername());
 
-        if (Objects.nonNull(findCustomer)) {
-            customers.set(customers.indexOf(findCustomer), customer);
-            return findCustomer;
+        if (optionalCustomer.isPresent()) {
+            Customer updateCustomer = optionalCustomer.get();
+            CustomerDetails customerDetails = customerDetailsRepository
+                    .findTopByCustomer_Username(updateCustomer.getUsername()).get();
+            updateCustomer.setCustomerDetails(customerDetails);
+            BeanUtils.copyProperties(customerForm.getDetails(), customerDetails);
+            customerDetailsRepository.save(customerDetails);
+            return customerDtoMapper.map(updateCustomer);
         } else {
-            throw new RestControllerNotFoundException("customer not found");
+            throw new NotFoundException("update error, customer not found");
         }
     }
 }

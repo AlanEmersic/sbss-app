@@ -1,9 +1,11 @@
 package com.agency04.sbss.pizza.controller;
 
-import com.agency04.sbss.pizza.model.Customer;
+import com.agency04.sbss.pizza.dto.CustomerDto;
+import com.agency04.sbss.pizza.form.CustomerForm;
 import com.agency04.sbss.pizza.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,23 +18,23 @@ public class CustomerController {
     }
 
     @GetMapping("/all")
-    public List<Customer> getCustomers() {
+    public List<CustomerDto> getCustomers() {
         return customerService.getAll();
     }
 
     @GetMapping("/{username}")
-    public Customer getCustomer(@PathVariable final String username) {
+    public CustomerDto getCustomer(@PathVariable final String username) {
         return customerService.get(username);
     }
 
     @PostMapping
-    public void addCustomer(@RequestBody final Customer customer) {
-        customerService.save(customer);
+    public void addCustomer(@Valid @RequestBody final CustomerForm customerForm) {
+        customerService.save(customerForm);
     }
 
     @PutMapping
-    public Customer update(@RequestBody final Customer customer) {
-        return customerService.update(customer);
+    public CustomerDto update(@Valid @RequestBody final CustomerForm customerForm) {
+        return customerService.update(customerForm);
     }
 
     @DeleteMapping("/{username}")
